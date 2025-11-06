@@ -1,6 +1,7 @@
 import { Button } from '@/components/buttons/Button';
 import { Input } from '@/components/inputs/Input';
 import { useAuth } from '@/hooks/useAuth';
+import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -11,6 +12,7 @@ export function LoginScreen() {
   const { login, isLoading } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
@@ -96,11 +98,19 @@ export function LoginScreen() {
                 placeholder="Enter your password"
                 value={password}
                 onChangeText={handlePasswordChange}
-                secureTextEntry
+                secureTextEntry={!showPassword}
                 autoCapitalize="none"
                 autoComplete="password"
                 error={passwordError || undefined}
                 editable={!isLoading}
+                rightIcon={
+                  <Ionicons
+                    name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                    size={24}
+                    color="#666"
+                  />
+                }
+                onRightIconPress={() => setShowPassword(!showPassword)}
               />
 
               {error && (
