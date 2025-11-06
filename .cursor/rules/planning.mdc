@@ -1,0 +1,93 @@
+---
+alwaysApply: true
+---
+
+# Planning & Feature Documentation
+
+## Feature Documentation Process
+
+### When User Requests a Feature Plan (NOT Execution)
+
+When the user requests a new feature or asks to plan a feature (without saying "execute"):
+
+1. **First, check the `docs/` folder** for existing feature documentation
+   - Read existing feature documentation files if they exist
+   - Understand the current feature plans and structure
+
+2. **Generate a feature name** based on the requested functionality
+   - Use kebab-case for file names (e.g., `user-login.md`, `news-list.md`, `news-detail.md`)
+   - Make the name descriptive and clear
+
+3. **Create a feature documentation file** in the `docs/` folder
+   - File format: `docs/{feature-name}.md`
+   - Include the feature name as the title
+   - Document the feature requirements, implementation details, and any relevant information
+   - **DO NOT implement the feature** - only create the documentation
+
+4. **Structure of the feature documentation file**:
+   ```markdown
+   # {Feature Name}
+
+   ## Overview
+   [Brief description of the feature]
+
+   ## Requirements
+   [List of requirements]
+
+   ## Implementation Details
+   [Technical implementation details]
+
+   ## Components/Pages
+   [List of components or pages needed]
+
+   ## API/Data
+   [API endpoints or data sources]
+
+   ## Notes
+   [Any additional notes or considerations]
+   ```
+
+5. **Ensure the `docs/` folder exists** before creating the file
+   - If the folder doesn't exist, create it first
+
+### When User Requests to Execute a Feature Plan
+
+When the user explicitly asks to "execute" a feature plan (e.g., "execute home.md", "execute this plan", "implement home.md"):
+
+1. **Read the feature documentation** from the `docs/` folder
+   - Read the specific feature documentation file mentioned
+   - Understand the requirements and implementation details
+
+2. **Implement the feature** according to the documentation
+   - Create all necessary files (screens, components, hooks, stores, etc.)
+   - Follow the project structure and best practices
+   - Use the implementation details from the documentation
+
+3. **Follow the project structure**:
+   - Screens go in `screens/` folder (root level)
+   - Components go in `components/{type}/` folders
+   - Hooks go in `hooks/` folder
+   - Stores go in `stores/` folder
+   - Services/API go in `services/` folder
+   - Types go in `types/` folder
+
+## Examples
+
+### Example 1: Planning a Feature
+If user asks: "I want to add a search feature for news"
+
+Response should:
+- Check `docs/` folder first for existing documentation
+- Generate feature name: `news-search.md`
+- Create file: `docs/news-search.md`
+- Document the search feature requirements and implementation plan
+- **DO NOT implement** - only create documentation
+
+### Example 2: Executing a Feature Plan
+If user asks: "execute home.md" or "execute this plan" or "implement home.md"
+
+Response should:
+- Read `docs/home.md` file
+- Implement all features according to the documentation
+- Create all necessary files and components
+- Follow the project structure and best practices

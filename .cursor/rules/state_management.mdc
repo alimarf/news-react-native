@@ -1,0 +1,125 @@
+---
+alwaysApply: true
+---
+
+# State Management Guidelines
+
+## State Management Strategy
+
+This project uses different state management approaches for different purposes. Follow these guidelines when implementing state management:
+
+### 1. Zustand - Global State
+
+**Purpose**: Use Zustand for global application state that needs to be accessed across multiple components and screens.
+
+**Use Cases**:
+- Global application state
+- Shared data across multiple screens
+- Complex state that needs persistence
+- State that doesn't fit into React Context use cases
+
+**Example**:
+- News data cache
+- User preferences (non-auth related)
+- App-wide settings
+- Global UI state
+
+**Implementation**:
+- Create stores in `stores/` or `store/` folder
+- Use TypeScript for store definitions
+- Keep stores focused and single-purpose
+
+### 2. React Context - Auth, Theme, Localization
+
+**Purpose**: Use React Context for specific cross-cutting concerns that need to be available throughout the app.
+
+**Use Cases**:
+- **Authentication**: User authentication state, tokens, user session
+- **Theme**: Light/dark mode, theme colors, styling preferences
+- **Localization**: Language settings, translations, i18n
+
+**Implementation**:
+- Create context providers in `contexts/` or `providers/` folder
+- Use TypeScript for context types
+- Create custom hooks for consuming context (e.g., `useAuth()`, `useTheme()`, `useLocalization()`)
+- Keep context providers focused on their specific concern
+
+**Example Structure**:
+```
+contexts/
+  ├── AuthContext.tsx
+  ├── ThemeContext.tsx
+  └── LocalizationContext.tsx
+```
+
+### 3. React Hooks - Reusable Logic & Helpers
+
+**Purpose**: Use custom React Hooks for reusable logic, helper functions, and component-level state management.
+
+**Use Cases**:
+- Reusable business logic
+- Helper functions that use React hooks
+- Component-specific state management
+- Data fetching logic
+- Form handling
+- API calls with state management
+
+**Implementation**:
+- Create custom hooks in `hooks/` folder
+- Use naming convention: `use{FeatureName}` (e.g., `useNewsList.ts`, `useForm.ts`)
+- Return values and functions that components can use
+- Keep hooks focused and single-purpose
+
+**Example**:
+- `useNewsList.ts` - Fetch and manage news list
+- `useForm.ts` - Form validation and handling
+- `useDebounce.ts` - Debounce utility
+- `useLocalStorage.ts` - Local storage helper
+
+## Decision Tree
+
+When deciding which state management approach to use:
+
+1. **Is it authentication, theme, or localization?** → Use React Context
+2. **Is it global state shared across many screens?** → Use Zustand
+3. **Is it reusable logic or helper function?** → Use Custom React Hook
+4. **Is it component-specific state?** → Use useState or useReducer
+
+## Best Practices
+
+- **Don't over-engineer**: Use the simplest solution that works
+- **Keep state close to where it's used**: Prefer local state (useState) when possible
+- **Avoid prop drilling**: Use Context or Zustand when state needs to be shared across many components
+- **Type everything**: Use TypeScript for all state management
+- **Keep stores/contexts focused**: One store/context per concern
+- **Use custom hooks**: Extract reusable logic into custom hooks
+
+## React Native Best Practices for State Management
+
+### Performance Considerations
+- **Avoid unnecessary re-renders**: Use `React.memo()`, `useMemo()`, and `useCallback()` to prevent unnecessary component re-renders
+- **Optimize Context**: Split contexts to avoid re-rendering all consumers when only part of the state changes
+- **Zustand selectors**: Use Zustand selectors to subscribe only to specific parts of the store
+- **Batch updates**: Batch state updates when possible to reduce re-renders
+
+### Memory Management
+- **Cleanup**: Always clean up subscriptions, listeners, and timers in `useEffect` cleanup functions
+- **Unmount handling**: Clear state or cancel requests when components unmount
+- **Image references**: Be careful with image URIs in state to avoid memory leaks
+
+### Background State Handling
+- **App state**: Use `AppState` API to handle app going to background/foreground
+- **Persistence**: Use AsyncStorage or SecureStore for state that needs to persist across app restarts
+- **Network state**: Handle network connectivity changes appropriately
+
+### Platform-Specific Considerations
+- **Platform differences**: Be aware that state updates may behave differently on iOS vs Android
+- **Navigation state**: Consider using navigation state management for screen-specific state
+- **Keyboard state**: Handle keyboard visibility state when needed
+
+### React Native Specific Patterns
+- **FlatList optimization**: When managing list data, use proper `keyExtractor` and `getItemLayout` for performance
+- **Image state**: Use `expo-image` with proper state management for image loading states
+- **Form state**: Use controlled components with proper state management for forms
+- **Loading states**: Always manage loading, error, and success states for async operations
+- **Offline support**: Consider offline state management for data that needs to work without network

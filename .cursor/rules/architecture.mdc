@@ -1,0 +1,15 @@
+---
+alwaysApply: true
+---
+
+# Architecture & Tech Stack
+
+## Tech Stack
+
+- **React Native Expo**: Framework for building cross-platform mobile applications
+- **Expo Router**: File-based routing system for navigation
+- **Axios**: HTTP client for making API requests
+- **React Hooks**: For state management and side effects (useState, useEffect, useCallback, useMemo, etc.)
+- **Zustand**: Lightweight state management library for global state
+- **React Context**: For sharing state across components without prop drilling
+

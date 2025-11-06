@@ -1,0 +1,32 @@
+---
+alwaysApply: true
+---
+
+# News React Native App - Features
+
+## Application Features
+
+### 1. Login/Authentication
+- User login functionality
+- Authentication data stored in local storage
+- Session management
+
+### 2. News List
+- Display list of news articles
+- Fetch news data from OpenAPI
+- News feed with article previews
+
+### 3. News Detail
+- Detailed view of individual news articles
+- Full article content
+- Related articles or additional information
+
+### 4. Profile
+- User profile management
+- Profile data stored in local storage
+- User settings and preferences
+
+## Data Sources
+
+- **Local Storage**: Used for login/authentication data and user profile information
+- **OpenAPI**: Used for fetching news articles

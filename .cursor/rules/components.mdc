@@ -1,0 +1,112 @@
+---
+alwaysApply: true
+---
+
+# Component Development Guidelines
+
+## Reusable Component Creation
+
+When the user requests a component (e.g., Button, Card, Input, etc.):
+
+1. **Create the component file** in the appropriate `components/` subfolder based on component type
+   - File format: `components/{type}/{ComponentName}.tsx` (use PascalCase for component names)
+   - Use TypeScript (.tsx) for all components
+   - Organize components by type/category:
+     - **Cards**: `components/cards/` - Card components (e.g., `NewsCard.tsx`, `ArticleCard.tsx`)
+     - **Buttons**: `components/buttons/` - Button components (e.g., `Button.tsx`, `IconButton.tsx`)
+     - **Inputs**: `components/inputs/` - Input/form components (e.g., `Input.tsx`, `TextArea.tsx`)
+     - **Layout**: `components/layout/` - Layout components (e.g., `Container.tsx`, `Section.tsx`)
+     - **UI**: `components/ui/` - General UI components (e.g., `LoadingIndicator.tsx`, `ErrorMessage.tsx`)
+
+2. **Component Structure**:
+   - Use functional components with TypeScript
+   - Define proper TypeScript interfaces for props
+   - Use named exports: `export function ComponentName() {}`
+   - Include proper prop types and default values when applicable
+
+3. **Component Best Practices**:
+   - Create a TypeScript interface for component props
+   - Use React Native components (View, Text, TouchableOpacity, etc.)
+   - Use StyleSheet.create() for styles
+   - Make components reusable and configurable through props
+   - Include proper TypeScript types for all props
+   - Support common props like `style`, `onPress`, `disabled`, etc. when relevant
+
+4. **React Native Best Practices**:
+   - **Performance**: Use `React.memo()` for components that re-render frequently
+   - **Lists**: Always use `FlatList` or `SectionList` instead of `ScrollView` for long lists
+   - **Images**: Use `expo-image` instead of `Image` for better performance and caching
+   - **Safe Areas**: Handle safe areas using `react-native-safe-area-context` (SafeAreaView or useSafeAreaInsets)
+   - **Touchables**: Use `Pressable` for new components (preferred over TouchableOpacity/TouchableHighlight)
+   - **Accessibility**: Add `accessibilityLabel`, `accessibilityRole`, and `accessibilityHint` props
+   - **Platform**: Use `Platform.select()` for platform-specific code when needed
+   - **Styles**: Prefer StyleSheet.create() over inline styles for better performance
+   - **Memoization**: Use `useMemo()` and `useCallback()` for expensive computations and callbacks
+   - **Avoid**: Don't use `flex: 1` unnecessarily, avoid deep nesting of Views
+   - **Keyboard**: Handle keyboard with `KeyboardAvoidingView` when needed
+   - **Animations**: Use `react-native-reanimated` for smooth animations
+
+5. **File Structure Example**:
+   ```typescript
+   import { View, Text, StyleSheet } from 'react-native';
+   
+   interface ComponentNameProps {
+     // Define props here
+   }
+   
+   export function ComponentName({ ...props }: ComponentNameProps) {
+     return (
+       <View style={styles.container}>
+         {/* Component content */}
+       </View>
+     );
+   }
+   
+   const styles = StyleSheet.create({
+     container: {
+       // Styles here
+     },
+   });
+   ```
+
+6. **Ensure the appropriate folder exists** before creating the file
+   - If the type folder doesn't exist (e.g., `components/cards/`, `components/buttons/`), create it first
+   - Create the folder structure as needed
+   - **Note**: Screens are NOT in the components folder - they are in the `screens/` folder at the root level
+
+7. **Component Organization by Type**:
+   - **Cards** (`components/cards/`): Card components for displaying content in card format
+     - Example: `components/cards/NewsCard.tsx`, `components/cards/ArticleCard.tsx`
+   - **Buttons** (`components/buttons/`): Button components and button variants
+     - Example: `components/buttons/Button.tsx`, `components/buttons/IconButton.tsx`
+   - **Inputs** (`components/inputs/`): Form input components
+     - Example: `components/inputs/Input.tsx`, `components/inputs/TextArea.tsx`, `components/inputs/Select.tsx`
+   - **Layout** (`components/layout/`): Layout and container components
+     - Example: `components/layout/Container.tsx`, `components/layout/Section.tsx`, `components/layout/Grid.tsx`
+   - **UI** (`components/ui/`): General UI components (loading, errors, modals, etc.)
+     - Example: `components/ui/LoadingIndicator.tsx`, `components/ui/ErrorMessage.tsx`, `components/ui/Modal.tsx`
+   - For complex components with multiple files, create a subfolder: `components/{type}/{ComponentName}/`
+   - Keep component files focused and single-purpose
+
+## Examples
+
+### Example 1: Button Component
+If user asks: "Create a Button component"
+
+Response should:
+- Create file: `components/buttons/Button.tsx`
+- Ensure `components/buttons/` folder exists (create if needed)
+- Define ButtonProps interface
+- Implement a reusable Button component with proper TypeScript types
+- Include common button props (onPress, disabled, variant, etc.)
+
+### Example 2: News Card Component
+If user asks: "Create a NewsCard component"
+
+Response should:
+- Create file: `components/cards/NewsCard.tsx`
+- Ensure `components/cards/` folder exists (create if needed)
+- Define NewsCardProps interface
+- Implement a reusable NewsCard component with proper TypeScript types
+
+**Note**: Screen components should be created in the `screens/` folder at the root level, not in the `components/` folder. See screen creation guidelines for more details.
