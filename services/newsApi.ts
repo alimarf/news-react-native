@@ -1,9 +1,14 @@
 import { NewsApiResponse, NewsArticle } from '@/types/news';
 import axios from 'axios';
+import Constants from 'expo-constants';
 
-// You can replace this with your actual OpenAPI endpoint
-const API_BASE_URL = 'https://newsapi.org/v2';
-const API_KEY = '632d517c1d274349bca6cc8c4e6b9241'; // Replace with your actual API key
+// Get API configuration from environment variables
+const API_BASE_URL = Constants.expoConfig?.extra?.apiBaseUrl || 'https://newsapi.org/v2';
+const API_KEY = Constants.expoConfig?.extra?.apiKey || '';
+
+if (!API_KEY) {
+  console.warn('API_KEY is not set in environment variables');
+}
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
